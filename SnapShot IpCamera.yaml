@@ -2,9 +2,7 @@ blueprint:
   name: Invia un istantanea IPCAM con attivazione RING/PIR
   author: Razor
   description: >
-     Questo progetto di automazione crea un istantanea della fotocamera quando il campanello si trova in stato attivato e invia una notifica al tuo telefono con snapshot.'
-     ## 🐘 Requisiti
-     #### Creare una cartella nel path www di HA chiamata: cam_captures (qui verranno memorizzati gli snapshot)
+     ## 🐘 Questo progetto di automazione crea un istantanea della fotocamera quando il campanello si trova in stato attivato e invia una notifica al tuo telefono con snapshot.'
   domain: automation
   source_url: https://github.com/RazorCopter/blueprint
   input:
@@ -62,8 +60,8 @@ blueprint:
       default: Suona il campanello!
     notification_message:
       name: Messaggio notifica (Opzionale)
-      description: 'Default: "{{ sensor_name }} movimento rilevato! Snapshot da Camera ora: {{ time }}."'
-      default: '{{ sensor_name }} movimento rilevato! Snapshot da Citofono ora: {{ time }}.'
+      description: 'Default: "Presenza {{ sensor_name }}! Snapshot ora: {{ time }}."'
+      default: 'Presenza {{ sensor_name }}! Snapshot ora: {{ time }}.'
     delay:
       name: Ritardo (Opzionale)
       description: Attesa prima di creare lo snapshot
@@ -92,13 +90,13 @@ blueprint:
     file:
       name: File Path
       description: Il percorso del file in cui archiviare lo snapshot più recente. CONSIGLIATO -
-        Se lo desideri, modifica CAMERA_NAME in modo che corrisponda al nome della tua fotocamera, senza spazi!
+        Se lo desideri, modifica CAMERA_NAME in modo che corrisponda al nome della tua IPCamera, senza spazi!
       default: /media/CAMERA_NAME/last_motion.jpg
     archive_file:
       name: Archivio File Path
       description: Il percorso del file in cui archiviare lo snapshot più recente. CONSIGLIATO -
-        Se lo desideri, modifica CAMERA_NAME in modo che corrisponda al nome della tua fotocamera, senza spazi!
-      default: /media/CITOFONO/archive/motion_{{ now().strftime("%Y%m%d-%H%M%S")
+        Se lo desideri, modifica CAMERA_NAME in modo che corrisponda al nome della tua IPCamera, senza spazi!
+      default: /media/CAMERA_NAME/archive/motion_{{ now().strftime("%Y%m%d-%H%M%S")
         }}.jpg
     additional_actions:
       name: Azioni Addizionali
