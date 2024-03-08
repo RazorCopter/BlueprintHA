@@ -30,7 +30,7 @@ blueprint:
         device:
           filter:
           - integration: mobile_app
-          multiple: true
+          multiple: false
     is_ios:
       name: Usi un dispositivo iOS?
       description: Seleziona se il dispositivo selezionato esegue iOS (default Android).
