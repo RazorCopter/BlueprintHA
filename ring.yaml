@@ -1,13 +1,20 @@
 blueprint:
   name: Invia un istantanea IPCAM con attivazione RING
-  description: 'Questo progetto di automazione crea un istantanea della fotocamera quando il campanello si trova in stato attivato e invia una notifica al tuo telefono con snapshot.'
+  author: Razor
+  description: >
+     Questo progetto di automazione crea un istantanea della fotocamera quando il campanello si trova in stato attivato e invia una notifica al tuo telefono con snapshot.'
+     ## 🐘 Requisiti
+     #### Creare una cartella nel path www di HA chiamata: cam_captures (qui verranno memorizzati gli snapshot)
   domain: automation
+    homeassistant:
+    min_version: 2024.2.0
   input:
     binary_sensor:
-      name: Push button
-      description:
+      name: Pressione Pulsante
+      description: >
         Entity che rappresenta un pulsante fisico (che ripristina la sua posizione
         quando rilasciato). Questa automazione viene attivata dal fronte di discesa.
+        
       selector:
         entity:
           domain: binary_sensor
@@ -21,9 +28,12 @@ blueprint:
     notify_device:
       name: Dispositivo di notifica
       description: Per ricevere la notifica, il dispositivo deve eseguire l'app ufficiale Home Assistant.
+      default: []
       selector:
         device:
-          integration: mobile_app
+          filter:
+          - integration: mobile_app
+          multiple: true
     is_ios:
       name: Usi un dispositivo iOS?
       description: Seleziona se il dispositivo selezionato esegue iOS (default Android).
