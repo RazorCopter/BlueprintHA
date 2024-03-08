@@ -1,50 +1,47 @@
 blueprint:
-  name: Send a camera snapshot when doorbell was activated
-  description: 'This automation blueprint creates a camera snapshot when the doorbell was activated and
-    sends a notification to your phone with the picture.
-    '
+  name: Invia un'istantanea della fotocamera quando è stato attivato il campanello
+  description: 'Questo progetto di automazione crea un'istantanea della fotocamera quando il campanello è stato attivato e
+    invia una notifica al tuo telefono con l'immagine.'
   domain: automation
   input:
     binary_sensor:
       name: Push button
       description:
-        Entity representing a physical push button (which restores its position
-        when released). It must emit a square signal on press.
-        This automation is triggered by its falling edge.
+        Entità che rappresenta un pulsante fisico (che ripristina la sua posizione
+        quando rilasciato).Questa automazione viene attivata dal fronte di discesa.
       selector:
         entity:
           domain: binary_sensor
-          integration: esphome
+          integration: mqtt
     camera:
       name: Camera
-      description: The camera which creates the snapshot
+      description: Camera da cui creare lo snapshot
       selector:
         entity:
           domain: camera
     notify_device:
-      name: Device to notify
-      description: Device needs to run the official Home Assistant app to receive
-        notifications
+      name: Dispositivo di notifica
+      description: Per ricevere la notifica, il dispositivo deve eseguire l'app ufficiale Home Assistant.
       selector:
         device:
           integration: mobile_app
     is_ios:
-      name: Is it an iOS device?
-      description: Toggle if your selected device runs iOS, default is Android
+      name: E' un dispositivo iOS?
+      description: Seleziona se il dispositivo selezionato esegue iOS, l'impostazione predefinita è Android.
       selector:
         boolean: {}
       default: false
     notification_title:
-      name: Notification title (Optional)
+      name: Titolo Notifica (Optionale)
       description: 'Default: "DingDong!"'
-      default: The Doorbell was activated!
+      default: Il Campanello è attivo!
     notification_message:
-      name: Notification message (Optional)
-      description: 'Default: "{{ binary_sensor_name }} was activated!"'
-      default: '{{ binary_sensor_name }} was activated!'
+      name: Messaggio notifica (Optionale)
+      description: 'Default: "{{ binary_sensor_name }} è stato attivato!"'
+      default: '{{ binary_sensor_name }} è stato attivato!'
     delay:
-      name: Delay (Optional)
-      description: Wait before creating camera snapshot
+      name: Ritardo (Optionale)
+      description: Attesa prima di creare lo snapshot
       default: ''
       selector:
         number:
@@ -53,7 +50,7 @@ blueprint:
           unit_of_measurement: seconds
           mode: slider
           step: 1.0
-  source_url: https://community.home-assistant.io/t/send-camera-snapshot-when-doorbell-was-activated/123456
+  source_url: https://github.com/RazorCopter/blueprint
 trigger:
   platform: state
   entity_id: !input 'binary_sensor'
@@ -68,7 +65,7 @@ variables:
   notification_title: !input 'notification_title'
   notification_message: !input 'notification_message'
   delay: !input 'delay'
-  snapshot_create_file_path: /config/www/tmp/snapshot_{{ states[camera].object_id
+  snapshot_create_file_path: /config/www/cam_captures/snapshot_{{ states[camera].object_id
     }}.jpg
   snapshot_access_file_path: '{{ snapshot_create_file_path | replace(''/config/www'',''/local'')
     }}'
