@@ -5,9 +5,9 @@ blueprint:
      Questo progetto di automazione crea un istantanea della fotocamera quando il campanello si trova in stato attivato e invia una notifica al tuo telefono con snapshot.'
      ## 🐘 Requisiti
      #### Creare una cartella nel path www di HA chiamata: cam_captures (qui verranno memorizzati gli snapshot)
-  domain: automation
-    homeassistant:
+  homeassistant:
     min_version: 2024.2.0
+  domain: automation
   input:
     binary_sensor:
       name: Pressione Pulsante
