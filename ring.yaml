@@ -1,5 +1,5 @@
 blueprint:
-  name: Invia un'istantanea della fotocamera quando è stato attivato il campanello
+  name: Invia un istantanea della fotocamera quando è stato attivato il campanello
   description: 'Questo progetto di automazione crea un'istantanea della fotocamera quando il campanello è stato attivato e
     invia una notifica al tuo telefono con l'immagine.'
   domain: automation
