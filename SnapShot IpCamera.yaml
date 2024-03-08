@@ -57,11 +57,11 @@ blueprint:
         boolean: {}
       default: false
     notification_title:
-      name: Titolo Notifica (Optionale)
+      name: Titolo Notifica (Opzionale)
       description: 'Default: "DingDong!"'
       default: Suona il campanello!
     notification_message:
-      name: Messaggio notifica (Optionale)
+      name: Messaggio notifica (Opzionale)
       description: 'Default: "{{ sensor_name }} movimento rilevato! Snapshot da Camera ora: {{ time }}."'
       default: '{{ sensor_name }} movimento rilevato! Snapshot da Citofono ora: {{ time }}.'
     delay:
@@ -76,7 +76,7 @@ blueprint:
           mode: slider
           step: 1.0
     delay_notification:
-      name: Ritardo notifica (Optionale)
+      name: Ritardo notifica (Opzionale)
       description: Attendi prima di inviare un altra notifica.
       default: 0
       selector:
@@ -90,11 +90,11 @@ blueprint:
           multiline: false
     file:
       name: File Path
-      description: The file path to store the most current snapshot. RECOMMENDED -
-        Change CAMERA_NAME to match your camera name if wanted, no spaces!
+      description: Il percorso del file in cui archiviare lo snapshot più recente. CONSIGLIATO -
+        Se lo desideri, modifica CAMERA_NAME in modo che corrisponda al nome della tua fotocamera, senza spazi!
       default: /media/CAMERA_NAME/last_motion.jpg
     archive_file:
-      name: Archive File Path
+      name: Archivio File Path
       description: Il percorso del file in cui archiviare lo snapshot più recente. CONSIGLIATO -
         Se lo desideri, modifica CAMERA_NAME in modo che corrisponda al nome della tua fotocamera, senza spazi!
       default: /media/CITOFONO/archive/motion_{{ now().strftime("%Y%m%d-%H%M%S")
