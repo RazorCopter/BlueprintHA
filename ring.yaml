@@ -1,5 +1,5 @@
 blueprint:
-  name: Invia un istantanea
+  name: Invia un istantanea IPCAM con attivazione RING
   description: 'Questo progetto di automazione crea un istantanea della fotocamera quando il campanello si trova in stato attivato e invia una notifica al tuo telefono con snapshot.'
   domain: automation
   input:
