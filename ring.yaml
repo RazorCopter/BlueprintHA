@@ -8,10 +8,10 @@ blueprint:
   domain: automation
   input:
     binary_sensor:
-      name: Pressione Pulsante
+      name: Sensore: PIR o Binario
       description: >
         Entity che rappresenta un pulsante fisico (che ripristina la sua posizione
-        quando rilasciato). Questa automazione viene attivata dal fronte di discesa.        
+        quando rilasciato). Questa automazione viene attivata dal fronte di discesa.    
       selector:
         entity:
           domain: binary_sensor
@@ -25,11 +25,12 @@ blueprint:
     notify_device:
       name: Dispositivo di notifica
       description: Per ricevere la notifica, il dispositivo deve eseguire l'app ufficiale Home Assistant.
+      default: []
       selector:
         device:
           filter:
           - integration: mobile_app
-          multiple: false
+          multiple: true
     is_ios:
       name: Usi un dispositivo iOS?
       description: Seleziona se il dispositivo selezionato esegue iOS (default Android).
@@ -70,8 +71,8 @@ variables:
   notification_title: !input 'notification_title'
   notification_message: !input 'notification_message'
   delay: !input 'delay'
-  snapshot_create_file_path: /config/www/cam_captures/snapshot_{{ states[camera].object_id
-    }}.jpg
+  snapshot_create_file_path: /config/www/cam_captures/snapshot_{{ now().strftime("%Y%m%d-%H%M%S")
+        }}.jpg
   snapshot_access_file_path: '{{ snapshot_create_file_path | replace(''/config/www'',''/local'')
     }}'
 action:
