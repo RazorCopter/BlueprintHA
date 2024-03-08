@@ -100,8 +100,8 @@ blueprint:
         }}.jpg
     additional_actions:
       name: Azioni Addizionali
-      description: "Aggiungi azioni ulteriori per lo script. Eseguirà dopo tutto
-        altro. Utile per inviare un'altra notifica!\nVariables: sensor, sensor_name,
+      description: "Aggiungi azioni ulteriori per lo script. Sarà eseguito in coda a tutto.
+        Utile per inviare un'altra notifica!\nVariables: sensor, sensor_name,
         camera, camera_name, notification_title, notification_message, time, date,
         etc...\n- Esempio: Per inviare al dispositivo mobile utilizzando HA ufficiale
         App:\n\n  Notifiche -> Invia notifica via mobile.YOUR_DEVICE_NAME\n
@@ -119,8 +119,8 @@ blueprint:
         action: {}
     additional_actions_before:
       name: Azioni aggiuntive prima
-      description: Aggiungi ulteriori azioni allo script. Eseguirà prima di tutto
-        altro. Utile per accendere una luce prima dello scatto!
+      description: Aggiungi ulteriori azioni allo script. Verrà eseguito prima dello scatto.
+      Utile per accendere una luce prima della foto!
       default: []
       selector:
         action: {}
