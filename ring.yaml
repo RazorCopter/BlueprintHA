@@ -1,13 +1,13 @@
 blueprint:
   name: Invia un istantanea
-  description: 'Questo progetto di automazione crea un istantanea della fotocamera quando il campanello è stato attivato e invia una notifica al tuo telefono con snapshot.'
+  description: 'Questo progetto di automazione crea un istantanea della fotocamera quando il campanello si trova in stato attivato e invia una notifica al tuo telefono con snapshot.'
   domain: automation
   input:
     binary_sensor:
       name: Push button
       description:
-        Entità che rappresenta un pulsante fisico (che ripristina la sua posizione
-        quando rilasciato).Questa automazione viene attivata dal fronte di discesa.
+        Entity che rappresenta un pulsante fisico (che ripristina la sua posizione
+        quando rilasciato). Questa automazione viene attivata dal fronte di discesa.
       selector:
         entity:
           domain: binary_sensor
