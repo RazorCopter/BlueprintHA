@@ -1,44 +1,28 @@
-Skip to content
- 
-Search…
-All gists
-Back to GitHub
-@TheRealFalseReality
-TheRealFalseReality/send_snapshot_conditional.yaml
-Last active last week • Report abuse
-Code
-Revisions
-46
-Clone this repository at &lt;script src=&quot;https://gist.github.com/TheRealFalseReality/eab315e84f2711783fb7454ac0b42187.js&quot;&gt;&lt;/script&gt;
-<script src="https://gist.github.com/TheRealFalseReality/eab315e84f2711783fb7454ac0b42187.js"></script>
-Camera - Creates a camera snapshot if motion is detected and sends a notification to your device with the picture when certain conditions are met.
-send_snapshot_conditional.yaml
 blueprint:
-  name: Camera - Send & Save Camera snapshot when if a binary sensor's state turns
-    'off' to 'on', with Conditions
-  description: This automation blueprint creates a camera snapshot if motion is detected,
-    or if a binary sensor's state turns 'off' to 'on', and sends a notification to
-    your phone with the picture. Clicking the navigation will navigate to dashboard
-    URL. [More Info](https://community.home-assistant.io/t/camera-send-save-snapshot-to-mobile-device-when-motion-is-detected-with-conditions/604156/15)
-    (v1.5.1) [Automation]
+  name: Invia un istantanea IPCAM con attivazione RING
+  author: Razor
+  description: >
+     Questo progetto di automazione crea un istantanea della fotocamera quando il campanello si trova in stato attivato e invia una notifica al tuo telefono con snapshot.'
+     ## 🐘 Requisiti
+     #### Creare una cartella nel path www di HA chiamata: cam_captures (qui verranno memorizzati gli snapshot)
   domain: automation
-  source_url: https://gist.github.com/TheRealFalseReality/eab315e84f2711783fb7454ac0b42187
+  source_url: https://github.com/RazorCopter/blueprint
   input:
     condition:
-      name: Add Condition(s) to send Snapshot
-      description: Add conditions if needed to send snapshot to device
+      name: Aggiungi condizione(i) per invio snapshot
+      description: Aggiungi le condizioni necessarie per inviare lo snapshot al dispositivo
       default: []
       selector:
         condition: {}
     conditionSave:
-      name: Add Condition(s) to save Snapshot
-      description: Add conditions if needed to save snapshot
+      name: Aggiungi condizione(i) per salvare Snapshot
+      description: Aggiungi condizioni necessarie per salvare lo snapshot
       default: []
       selector:
         condition: {}
     sensor:
-      name: Motion or Binary Sensor
-      description: The sensor wich triggers the snapshot creation
+      name: Motion o Binary Sensor (RING Intercom)
+      description: Sensore triggher per la generazione dello snapshot
       selector:
         entity:
           domain:
@@ -46,58 +30,60 @@ blueprint:
           multiple: false
     camera:
       name: Camera
-      description: The camera which creates the snapshot
+      description: Camera con cui fare lo snapshot
       selector:
         entity:
           domain:
           - camera
           multiple: false
     notify:
-      name: Notify a Device
-      description: Notify a device?
+      name: Notifica al Dispositivo
+      description: Notifica al dispositivo?
       default: true
       selector:
         boolean: {}
     notify_device:
-      name: Device to notify
-      description: Device needs to run the official Home Assistant app to receive
-        notifications
+      name: Dispositivo di notifica
+      description: Per ricevere la notifica, il dispositivo deve eseguire l App ufficiale Home Assistant.
       selector:
         device:
-          integration: mobile_app
+          filter:
+          - integration: mobile_app
           multiple: false
     is_ios:
-      name: Is it an iOS device?
-      description: Toggle if your selected device runs iOS, default is Android
+      name: Usi un dispositivo iOS?
+      description: Seleziona se il dispositivo selezionato esegue iOS (default Android).
       selector:
         boolean: {}
       default: false
     notification_title:
-      name: Notification title (Optional)
-      description: 'Default: "Motion detected!"'
-      default: Motion detected!
+      name: Titolo Notifica (Optionale)
+      description: 'Default: "DingDong!"'
+      default: Suona il campanello!
     notification_message:
-      name: Notification message (Optional)
-      description: 'Default: "{{ sensor_name }} detected movement! Snapshot from {{
-        camera_name }} at {{ time }}."'
-      default: '{{ sensor_name }} detected movement! Snapshot from {{ camera_name
-        }} at {{ time }}.'
+      name: Messaggio notifica (Optionale)
+      description: 'Default: "{{ sensor_name }} movimento rilevato! Snapshot da Camera ora: {{ time }}."'
+      default: '{{ sensor_name }} movimento rilevato! Snapshot da Citofono ora: {{ time }}.'
     delay:
-      name: Delay (Optional)
-      description: Wait before creating camera snapshot.
+      name: Ritardo (Optionale)
+      description: Attesa prima di creare lo snapshot
       default: 0
       selector:
-        duration: {}
+        number:
+          min: 0.0
+          max: 60.0
+          unit_of_measurement: seconds
+          mode: slider
+          step: 1.0
     delay_notification:
-      name: Notification Delay (Optional)
-      description: Wait before sending another notification.
+      name: Ritardo notifica (Optionale)
+      description: Attendi prima di inviare un altra notifica.
       default: 0
       selector:
         duration: {}
     data_clickaction_url:
-      name: URL to navigate to. Tested on Android Only! (Optional)
-      description: The URL to navigate to when clicking on the notification.
-      default: /lovelace/
+      name: URL di navigazione. (Optionale)
+      description: URL a cui accedere quando si fa clic sulla notifica.
       selector:
         text:
           multiple: false
@@ -109,17 +95,17 @@ blueprint:
       default: /media/CAMERA_NAME/last_motion.jpg
     archive_file:
       name: Archive File Path
-      description: The file path to store the snapshot in an archive folder. RECOMMENDED
-        - Change CAMERA_NAME to match your camera name if wanted, no spaces!
-      default: /media/CAMERA_NAME/archive/motion_{{ now().strftime("%Y%m%d-%H%M%S")
+      description: Il percorso del file in cui archiviare lo snapshot più recente. CONSIGLIATO -
+        Se lo desideri, modifica CAMERA_NAME in modo che corrisponda al nome della tua fotocamera, senza spazi!
+      default: /media/CITOFONO/archive/motion_{{ now().strftime("%Y%m%d-%H%M%S")
         }}.jpg
     additional_actions:
-      name: Additional Actions
-      description: "Add additional actions to the script. Will execute after everything
-        else. Useful to send another notification!\nVariables: sensor, sensor_name,
+      name: Azioni Addizionali
+      description: "Aggiungi azioni ulteriori per lo script. Eseguirà dopo tutto
+        altro. Utile per inviare un'altra notifica!\nVariables: sensor, sensor_name,
         camera, camera_name, notification_title, notification_message, time, date,
-        etc...\n- Example: To send to Mobile Device using the official Home Assistant
-        App:\n\n  Notifications -> Send a notification via mobile.YOUR_DEVICE_NAME\n
+        etc...\n- Esempio: Per inviare al dispositivo mobile utilizzando HA ufficiale
+        App:\n\n  Notifiche -> Invia notifica via mobile.YOUR_DEVICE_NAME\n
         \ ```\n  service: notify.YOUR_DEVICE_NAME\n  metadata: {}\n  data:\n    message:
         \"{{ notification_message }}\"\n    title: \"{{ notification_title }}\"\n
         \   data: '\n      {% set android_data = {\"image\": \"%s\", \"clickAction\":
@@ -127,16 +113,15 @@ blueprint:
         ios_data = {\"attachment\": {\"url\": \"%s\",\"content_type\": \"JPEG\"},\"url\":
         \"%s\"} | format(snapshot_access_file_path, clickActionURL) %} \n      {{
         ios_data if is_ios else android_data }}'\n  ```\n\n  Copy {{ notification_message
-        }} into `message`. This will switch to \"yaml\" mode. Copy the entire `data`
-        block from above, and replace your entry on the right.\n  Above is a completed
-        example.\n"
+        }} into `message`. Questo passerà a \"yaml\" mode. Copia interamente `data`
+        blocca dall alto e sostituisci la voce a destra.\n  Sopra un esempio completo.\n"
       default: []
       selector:
         action: {}
     additional_actions_before:
-      name: Additional Actions Before
-      description: Add additional actions to the script. Will execute before everything
-        else. Useful to turn on a light before the snapshot!
+      name: Azioni aggiuntive prima
+      description: Aggiungi ulteriori azioni allo script. Eseguirà prima di tutto
+        altro. Utile per accendere una luce prima dello scatto!
       default: []
       selector:
         action: {}
@@ -209,103 +194,4 @@ action:
       filename: !input archive_file
   - delay: !input delay_notification
 mode: single
-@rafasanz
-rafasanz commented on Dec 10, 2023
-Time error format issue?
-image
 
-any idea what could be happening?
-
-@TheRealFalseReality
-Author
-TheRealFalseReality commented on Dec 12, 2023
-Time error format issue? image
-
-any idea what could be happening?
-
-hmmm, not sure. Working for me, just tested it
-
-@DeimicUser
-DeimicUser commented on Dec 20, 2023
-Hi,
-
-Great work with this blueprint!!! Its amaizng tool :)
--Is it possible to add more devices to send a same notification in one automation?
--Could you upgrade your blueprint to add several motion sensors and connect them with camera?
-
-In that case I want to send a notification to 3 devices. I have 8 camera's and 14 motion detection. I had to created 24 automations with your blueprint and I only solved 8 motion detection....
-It would be great to have one blueprint for many devices, many motion detections and many cameras.
-
-Something like:
--Choose how many cameras do you have?
--Put a list of sensors for each camera
--Put a list of devices for notification for each camera
--Put title and text for notification for each camera
--Put a conditional (if alarm set or time is between sunrise/sunset) for each camera
-
-Thank you in advance for respond.
-
-@TheRealFalseReality
-Author
-TheRealFalseReality commented on Dec 25, 2023
-Hi,
-
-Great work with this blueprint!!! Its amaizng tool :) -Is it possible to add more devices to send a same notification in one automation? -Could you upgrade your blueprint to add several motion sensors and connect them with camera?
-
-In that case I want to send a notification to 3 devices. I have 8 camera's and 14 motion detection. I had to created 24 automations with your blueprint and I only solved 8 motion detection.... It would be great to have one blueprint for many devices, many motion detections and many cameras.
-
-Something like: -Choose how many cameras do you have? -Put a list of sensors for each camera -Put a list of devices for notification for each camera -Put title and text for notification for each camera -Put a conditional (if alarm set or time is between sunrise/sunset) for each camera
-
-Thank you in advance for respond.
-
-Unfortunately I'm not all that skilled at programming to do all that yet! For now, I just recreate the sensor for each camera
-
-@TheRealFalseReality
-Author
-TheRealFalseReality commented on Jan 25
-Hi,
-
-Great work with this blueprint!!! Its amaizng tool :) -Is it possible to add more devices to send a same notification in one automation? -Could you upgrade your blueprint to add several motion sensors and connect them with camera?
-
-In that case I want to send a notification to 3 devices. I have 8 camera's and 14 motion detection. I had to created 24 automations with your blueprint and I only solved 8 motion detection.... It would be great to have one blueprint for many devices, many motion detections and many cameras.
-
-Something like: -Choose how many cameras do you have? -Put a list of sensors for each camera -Put a list of devices for notification for each camera -Put title and text for notification for each camera -Put a conditional (if alarm set or time is between sunrise/sunset) for each camera
-
-Thank you in advance for respond.
-
-I don't know much of the advance stuff, but I think I added the ability to notify multiple devices by adding the option to add more actions. See the example in the blueprint to notify another device. You may be able to do many more things with this option as well! Lemme know if it works.
-
-@roby70cr
-roby70cr commented 2 weeks ago
-Found the blueprint useful, and wanted to know if it could be possible to add the possibility of switching on the LED light before taking the snapshot, so t9 have some light in evening and night times. Maybe adding a condition after sunset and before sunrise. Thank you.
-
-@TheRealFalseReality
-Author
-TheRealFalseReality commented 2 weeks ago
-Found the blueprint useful, and wanted to know if it could be possible to add the possibility of switching on the LED light before taking the snapshot, so t9 have some light in evening and night times. Maybe adding a condition after sunset and before sunrise. Thank you.
-
-I added an addition action option to execute BEFORE everything else, useful if you wanted to turn on the light before the snapshot delay. Otherwise, create another automation to turn on the light when the motion sensor is triggered on.
-You can try using the condition option for sunset/sunrise conditions or create another automation for that functionality.
-
-@roby70cr
-roby70cr commented 2 weeks ago
-I added an addition action option to execute BEFORE everything else, useful if you wanted to turn on the light before the snapshot delay. Otherwise, create another automation to turn on the light when the motion sensor is triggered on. You can try using the condition option for sunset/sunrise conditions or create another automation for that functionality.
-
-Did not pay attention to that option, thank you, will try as you suggested.
-
-@RazorCopter
-Comment
- 
-Leave a comment
- 
-Footer
-© 2024 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-Status
-Docs
-Contact
-Manage cookies
-Do not share my personal information
