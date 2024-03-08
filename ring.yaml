@@ -1,7 +1,6 @@
 blueprint:
   name: Invia un istantanea della fotocamera quando è stato attivato il campanello
-  description: 'Questo progetto di automazione crea un'istantanea della fotocamera quando il campanello è stato attivato e
-    invia una notifica al tuo telefono con l'immagine.'
+  description: 'Questo progetto di automazione crea un istantanea della fotocamera quando il campanello è stato attivato e invia una notifica al tuo telefono con snapshot.'
   domain: automation
   input:
     binary_sensor:
@@ -26,8 +25,8 @@ blueprint:
         device:
           integration: mobile_app
     is_ios:
-      name: E' un dispositivo iOS?
-      description: Seleziona se il dispositivo selezionato esegue iOS, l'impostazione predefinita è Android.
+      name: Usi un dispositivo iOS?
+      description: Seleziona se il dispositivo selezionato esegue iOS (default Android).
       selector:
         boolean: {}
       default: false
