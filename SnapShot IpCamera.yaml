@@ -65,7 +65,7 @@ blueprint:
       description: 'Default: "{{ sensor_name }} movimento rilevato! Snapshot da Camera ora: {{ time }}."'
       default: '{{ sensor_name }} movimento rilevato! Snapshot da Citofono ora: {{ time }}.'
     delay:
-      name: Ritardo (Optionale)
+      name: Ritardo (Opzionale)
       description: Attesa prima di creare lo snapshot
       default: 0
       selector:
@@ -82,8 +82,9 @@ blueprint:
       selector:
         duration: {}
     data_clickaction_url:
-      name: URL di navigazione. (Optionale)
+      name: URL di navigazione. (Opzionale)
       description: URL a cui accedere quando si fa clic sulla notifica.
+      default: /lovelace/
       selector:
         text:
           multiple: false
