@@ -1,4 +1,4 @@
-## Blueprint Automation Home Assistant
+# Blueprint Automation Home Assistant
 
 ## 🐘 Requisiti
 #### Creare una cartella nel path www di HA chiamata: cam_captures (qui verranno memorizzati gli snapshot)
