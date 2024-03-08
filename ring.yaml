@@ -11,8 +11,7 @@ blueprint:
       name: Pressione Pulsante
       description: >
         Entity che rappresenta un pulsante fisico (che ripristina la sua posizione
-        quando rilasciato). Questa automazione viene attivata dal fronte di discesa.
-        
+        quando rilasciato). Questa automazione viene attivata dal fronte di discesa.        
       selector:
         entity:
           domain: binary_sensor
@@ -26,12 +25,11 @@ blueprint:
     notify_device:
       name: Dispositivo di notifica
       description: Per ricevere la notifica, il dispositivo deve eseguire l'app ufficiale Home Assistant.
-      default: []
       selector:
         device:
           filter:
           - integration: mobile_app
-          multiple: true
+          multiple: false
     is_ios:
       name: Usi un dispositivo iOS?
       description: Seleziona se il dispositivo selezionato esegue iOS (default Android).
