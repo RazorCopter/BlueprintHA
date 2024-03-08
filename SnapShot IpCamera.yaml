@@ -1,5 +1,5 @@
 blueprint:
-  name: Invia un istantanea IPCAM con attivazione RING
+  name: Invia un istantanea IPCAM con attivazione RING/PIR
   author: Razor
   description: >
      Questo progetto di automazione crea un istantanea della fotocamera quando il campanello si trova in stato attivato e invia una notifica al tuo telefono con snapshot.'
