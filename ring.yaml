@@ -8,7 +8,7 @@ blueprint:
   domain: automation
   input:
     binary_sensor:
-      name: Sensore: PIR o Binario
+      name: Sensore PIR o Binario
       description: >
         Entity che rappresenta un pulsante fisico (che ripristina la sua posizione
         quando rilasciato). Questa automazione viene attivata dal fronte di discesa.    
